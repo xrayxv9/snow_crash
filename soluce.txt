@@ -1,0 +1,22 @@
+I.
+	cd /
+	find / | grep john
+	cd rofs/sbin/
+	cat john
+	cdiiddwpgswtgt
+	code cesar 11 :
+	nottoohardhere
+	su level00
+	nottoohardhere
+	getflag
+	x24ti5gi3x0ol2eh4esiuxias
+
+II.
+	Les password sont generalement sauvegarder dans le
+	/etc/passwd
+	une fois trouver on cat le password
+	42hDRfypTqqnw
+	on reutilise notre ami john
+	f2av5il02puano7naaf6adaaf
+	GGs
+
