@@ -20,3 +20,97 @@ II.
 	f2av5il02puano7naaf6adaaf
 	GGs
 
+III.
+	Premiere etape on recup le fichier sur notre machine pour effectuer ce qu;on veut dessus:
+	scp -P 4242 level02@192.168.1.22:/home/user/level02/level02.pcap ./level02.pcap
+	je recupere le .pcap car il s'agit d'un fichier fais avec notre bon vieux wireshark
+	une fois fais un regarde un peu tout les packets.
+
+	Puis on tombe sur un packet qui dis :
+	Pas sword:
+	donc on follow le packet et hop on tombe sur un mot de passe
+	ft_wandr...NDRel.L0L
+	une fois qu'on a tenter on voit que ce n'est pas bon
+	on check donc les valeur hexa :
+
+	66 = f
+	74 = t
+	5f = _
+	77 = w
+	61 = a
+	6e = n
+	64 = d
+	72 = r
+	7f = <del>
+	7f = <del>
+	7f = <del>
+	4e = N
+	44 = D
+	52 = R
+	65 = e
+	6c = l
+	7f = <del>
+	4c = L
+	30 = O
+	4c = L
+	0d = <enter>
+	si on effectue donc toutes les actions une par une on tombe sur :
+	ft_waNDReL0L
+	on se connecte avec ca:
+	et on peut recup le flag
+	
+	kooda2puivaav1idi4f57q8iq
+
+IV.
+	On a donc un executable, on effectue la commande strings pour voir de quoi est compose ce fichier.
+	une fois que c'est fais on voit la ligne suivante:
+	/usr/bin/env echo Exploit me
+	on comprend donc que si on modifie le chemin vers la commande echo on pourra faire ce qu'on veut.
+	on fait donc un fichier dans notre tmp (dans lequel on ne peux pas ls mais on peut creer des fichiers parce que pourquoi pas)
+	on met dedans un bon vieux /bin/getflag
+	puis on export ce qu'il faut
+	export PATH=/tmp:$PATH
+	et on relance le ./level03
+
+	qi0maab88jeaj46qoumi7maus
+
+V.
+	On voit un fichier perl
+	le fichier en lui meme ne sert a rien, le lancer ne fais rien.
+	mais en fait il nous dis que sur la VM il y a un process qui tourne en localhost sur le port 4747.
+	Grace au script on sait que ce que ca fais c'est faire un echo de ce qu'on lui envoie
+	on peut en deduire qu'il y a une faille.
+	on tente donc de curl le localhost avec le port 4747
+	comme ce qui s'effectue s'effectue sur la variable x on fais:
+	curl "http://localhost:4747/?x=coucou"
+	il nous affiche coucou
+	on essaye donc :
+	curl "http://localhost:4747/?x=coucou;getflag"
+	mais seulement le coucou s'affiche
+	parce qu'il faut le ; d'URL donc %3B
+	curl "http://localhost:4747/?x=coucou%3Bgetflag"
+	et hop :
+	ne2searoevaevoem4ov4ar8ap
+
+VI.
+	On arrive sur la VM et on voit :
+	nouveau mail recu
+	donc on va voir dans le /var/mail
+	une fois fait on voit :
+	*/2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05
+	grace a ca on voit que toutes les 2mins un script se lance en tant que flag05
+	donc on comprend la faille
+	voila le script correspondant :
+	#!/bin/sh
+
+	for i in /opt/openarenaserver/* ; do
+			(ulimit -t 5; bash -x "$i")
+			rm -f "$i"
+	done
+
+	Ce script recup tout les fichiers dans /opt/openarenaserver, les executent
+	puis les suprimes
+	on met donc dans un fichier un beau petit getflag > /tmp/coucou
+	et hop :
+	viuaaale9huek52boumoomioc
+
