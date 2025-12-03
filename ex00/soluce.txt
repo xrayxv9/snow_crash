@@ -1,0 +1,12 @@
+I.
+	cd /
+	find / | grep john
+	cd rofs/sbin/
+	cat john
+	cdiiddwpgswtgt
+	code cesar 11 :
+	nottoohardhere
+	su level00
+	nottoohardhere
+	getflag
+	x24ti5gi3x0ol2eh4esiuxias
