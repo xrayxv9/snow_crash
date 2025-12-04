@@ -1,20 +1,28 @@
-#include <stdio.h>
-#include <fcntl.h>
+
 #include <unistd.h>
-
-int	main(int ac, char **av)
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+int main(void)
 {
-	int	i;
-	int	fd;
-	char	buffer[1];
-
-	i = 0;
-	fd = open(av[1], O_RDONLY);
-	int rd = read(fd, buffer, 1);
-	while (rd > 0)
+	int fd = open("token", O_RDONLY);
+	if (fd == -1)
 	{
-		printf("%c", buffer[0] - i);
-		rd = read(fd, buffer, 1);
+		printf("non\n");
+		return 1;
+	}
+	int i = 0;
+	while (1)
+	{
+		char c;
+		int a = read(fd, &c, 1);
+		printf("%c", c - i);
+		if (a <= 0)
+			break ;
 		i++;
 	}
+	printf("\n");
+	close(fd);
+	return 0;
 }
